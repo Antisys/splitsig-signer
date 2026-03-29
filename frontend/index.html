@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>SplitSig Signer</title>
+	<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1>SplitSig</h1>
+			<p class="subtitle">Sign Nostr events with your Lightning wallet</p>
+		</header>
+
+		<!-- Landing -->
+		<div id="landing">
+			<div class="card">
+				<p>Get a Nostr identity in seconds.</p>
+				<p class="muted">Scan with your Lightning wallet — no seed phrase, no extension, no signup. Your key is derived locally and never touches the server.</p>
+				<button id="btn-signin" class="btn-primary">Sign in with Lightning</button>
+				<div class="divider"><span>or</span></div>
+				<button id="btn-import-kit" class="btn-secondary" style="width:100%">Import Recovery Kit</button>
+				<input id="kit-file-input" type="file" accept=".json" class="hidden" />
+				<p id="kit-status" class="muted" style="margin-top:0.5rem; text-align:center"></p>
+			</div>
+		</div>
+
+		<!-- Auth screen -->
+		<div id="auth-screen" class="hidden">
+			<div class="card center">
+				<h2>Scan with your Lightning wallet</h2>
+				<div class="qr-wrap"><img id="qr-img" alt="LNURL-auth QR" /></div>
+				<p class="muted pulse">Waiting for wallet...</p>
+				<div class="btn-row" style="justify-content:center">
+					<button id="btn-test-login" class="btn-secondary">Test Login</button>
+					<button id="btn-cancel-auth" class="btn-secondary">Cancel</button>
+				</div>
+				<p id="auth-error" class="error"></p>
+			</div>
+		</div>
+
+		<!-- Signed in -->
+		<div id="signed-in" class="hidden">
+			<!-- Identity -->
+			<div class="card">
+				<h2>Your Identity</h2>
+				<div class="field-row">
+					<label>npub</label>
+					<code id="display-npub" class="mono"></code>
+					<button id="btn-copy-npub" class="btn-small">Copy</button>
+				</div>
+				<div class="field-row">
+					<label>nsec</label>
+					<code id="display-nsec" class="mono">****</code>
+					<button id="btn-toggle-nsec" class="btn-small">Reveal</button>
+					<button id="btn-copy-nsec" class="btn-small">Copy</button>
+				</div>
+			</div>
+
+			<!-- Recovery & sign out -->
+			<div class="card">
+				<div class="btn-row">
+					<button id="btn-download-kit" class="btn-secondary">Download Recovery Kit</button>
+					<button id="btn-signout" class="btn-secondary btn-danger">Sign Out</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
