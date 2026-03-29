@@ -20,7 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	$('btn-signin').addEventListener('click', startAuth);
-	$('btn-signout').addEventListener('click', signOut);
+	$('btn-signout').addEventListener('click', () => show('signout-confirm'));
+	$('btn-signout-confirm').addEventListener('click', signOut);
+	$('btn-signout-cancel').addEventListener('click', () => hide('signout-confirm'));
 	$('btn-download-kit').addEventListener('click', downloadRecoveryKit);
 	$('btn-copy-npub').addEventListener('click', () => copyText(toBech32('npub', npub), 'btn-copy-npub'));
 	$('btn-copy-nsec').addEventListener('click', () => copyText(toBech32('nsec', nsec), 'btn-copy-nsec'));
@@ -100,8 +102,11 @@ function signOut() {
 	npub = '';
 	linkingPubKey = '';
 	clearStoredKeys();
+	hide('signout-confirm');
 	hide('signed-in');
 	show('landing');
+	$('kit-status').textContent = '';
+	$('kit-status').classList.remove('success');
 }
 
 function toggleNsec() {

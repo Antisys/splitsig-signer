@@ -44,11 +44,10 @@ export function deriveNostrKey(sigHex: string, nonceHex: string, contextId: stri
 	const nsec = bytesToHex(sha256(concatBytes(sigBytes, nonceBytes)));
 	const npub = bytesToHex(schnorr.getPublicKey(hexToBytes(nsec)));
 
-	// Store in sessionStorage (cleared on tab close)
 	try {
-		const keys = JSON.parse(sessionStorage.getItem(KEY_STORE) || '{}');
+		const keys = JSON.parse(localStorage.getItem(KEY_STORE) || '{}');
 		keys[contextId] = nsec;
-		sessionStorage.setItem(KEY_STORE, JSON.stringify(keys));
+		localStorage.setItem(KEY_STORE, JSON.stringify(keys));
 	} catch { /* ignore */ }
 
 	return { nsec, npub };
@@ -56,7 +55,7 @@ export function deriveNostrKey(sigHex: string, nonceHex: string, contextId: stri
 
 export function getStoredNsec(contextId: string): string | null {
 	try {
-		const keys = JSON.parse(sessionStorage.getItem(KEY_STORE) || '{}');
+		const keys = JSON.parse(localStorage.getItem(KEY_STORE) || '{}');
 		return keys[contextId] || null;
 	} catch {
 		return null;
@@ -64,7 +63,10 @@ export function getStoredNsec(contextId: string): string | null {
 }
 
 export function clearStoredKeys(): void {
-	try { sessionStorage.removeItem(KEY_STORE); } catch { /* ignore */ }
+	try {
+		localStorage.removeItem(KEY_STORE);
+		localStorage.removeItem(NONCE_STORE);
+	} catch { /* ignore */ }
 }
 
 export function importNonce(contextId: string, nonce: string): void {

@@ -60,9 +60,17 @@
 
 			<!-- Recovery & sign out -->
 			<div class="card">
-				<div class="btn-row">
-					<button id="btn-download-kit" class="btn-secondary">Download Recovery Kit</button>
-					<button id="btn-signout" class="btn-secondary btn-danger">Sign Out</button>
+				<button id="btn-download-kit" class="btn-secondary" style="width:100%">Download Recovery Kit</button>
+				<p class="muted" style="margin-top:0.5rem">Save this before signing out. Without it, you cannot recover this identity.</p>
+				<button id="btn-signout" class="btn-secondary btn-danger" style="width:100%; margin-top:0.75rem">Sign Out</button>
+			</div>
+			<div id="signout-confirm" class="hidden" style="margin-top:0.5rem">
+				<div class="card" style="border-color: var(--danger)">
+					<p>This will delete your private key from this browser. If you haven't downloaded the recovery kit, your identity is lost forever.</p>
+					<div class="btn-row" style="margin-top:0.75rem">
+						<button id="btn-signout-confirm" class="btn-primary" style="background:var(--danger)">Delete key and sign out</button>
+						<button id="btn-signout-cancel" class="btn-secondary">Cancel</button>
+					</div>
 				</div>
 			</div>
 		</div>
